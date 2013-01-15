@@ -12,16 +12,16 @@ ir_t;
 
 typedef enum
 {
-    ECHO_FRONT, ECHO_BACK
+    ECHO_FRONT = 0, ECHO_BACK = 1
 }
 echo_t;
 
 typedef enum
 {
-    ECHO_FRONT_TRIGGER = 4;
-    ECHO_FRONT_ECHO = 5;
-    ECHO_BACK_TRIGGER = 8;
-    ECHO_BACK_ECHO = 9;
+    ECHO_FRONT_TRIGGER = 4,
+    ECHO_FRONT_ECHO = 5,
+    ECHO_BACK_TRIGGER = 8,
+    ECHO_BACK_ECHO = 9
 }
 pin_t;
 
