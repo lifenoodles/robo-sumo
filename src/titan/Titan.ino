@@ -1,5 +1,5 @@
-#include "sensors_echo.h"
-#include "titan_consts.h"
+#include "SensorsEcho.h"
+#include "Consts.h"
 
 SensorsEcho sensorsEcho;
 
