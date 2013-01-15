@@ -18,6 +18,10 @@ echo_t;
 
 typedef enum
 {
-    PIN_MOTOR_LEFT_A
+    ECHO_FRONT_TRIGGER = 4;
+    ECHO_FRONT_ECHO = 5;
+    ECHO_BACK_TRIGGER = 8;
+    ECHO_BACK_ECHO = 9;
 }
 pin_t;
+
