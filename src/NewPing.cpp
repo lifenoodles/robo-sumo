@@ -112,7 +112,7 @@ void NewPing::ping_timer(void (*userFunc)(void)) {
 	timer_us(ECHO_TIMER_FREQ, userFunc); // Set ping echo timer check every ECHO_TIMER_FREQ uS.
 }
 
- 
+
 boolean NewPing::check_timer() {
 	if (micros() > _max_time) { // Outside the timeout limit.
 		timer_stop();           // Disable timer interrupt

@@ -10,7 +10,7 @@
 // Blog: http://arduino.cc/forum/index.php/topic,106043.0.html
 //
 // DISCLAIMER:
-// This software is furnished "as is", without technical support, and with no 
+// This software is furnished "as is", without technical support, and with no
 // warranty, express or implied, as to its usefulness for any purpose.
 //
 // BACKGROUND:
@@ -18,7 +18,7 @@
 // it worked. Quickly I realized the problem wasn't the sensor, it was the
 // available ping and ultrasonic libraries causing the problem. The NewPing
 // library totally fixes these problems, adds many new features, and breaths
-// new life into these very affordable distance sensors. 
+// new life into these very affordable distance sensors.
 //
 // FEATURES:
 // * Works with many different ultrasonic sensor models: SR04, SRF05, SRF06, DYP-ME007 & Parallax PING)))™.
@@ -41,10 +41,10 @@
 //     max_cm_distance - [Optional] Maximum distance you wish to sense. Default=500cm.
 //
 // SYNTAX:
-//   sonar.ping() - Send a ping and get the echo time (in microseconds) as a result. 
+//   sonar.ping() - Send a ping and get the echo time (in microseconds) as a result.
 //   sonar.ping_in() - Send a ping and get the distance in whole inches.
 //   sonar.ping_cm() - Send a ping and get the distance in whole centimeters.
-//   sonar.ping_median(iterations) - Do multiple pings (default=5), discard out of range pings and return median in microseconds. 
+//   sonar.ping_median(iterations) - Do multiple pings (default=5), discard out of range pings and return median in microseconds.
 //   sonar.convert_in(echoTime) - Convert echoTime from microseconds to inches (rounds to nearest inch).
 //   sonar.convert_cm(echoTime) - Convert echoTime from microseconds to centimeters (rounds to nearest cm).
 //   sonar.ping_timer(function) - Send a ping and call function to test if ping is complete.
