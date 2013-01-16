@@ -16,7 +16,8 @@ void setup()
     Serial.print("STARTING ID = ");
     Serial.println(id);
     Memory::get()->init(id);
-    BlueTooth::get()->setReporting(false);
+    BlueTooth::get()->setEnabled(true);
+    BlueTooth::get()->setReporting(true);
 }
 
 int timer = 0;
@@ -31,7 +32,9 @@ void loop()
         timer = 0;
     }
     Sensors::get()->update(timePassed);
-    Serial.println(Sensors::get()->ir->getValue(IR_BACK_LEFT), DEC);
+   /* Serial.println(Sensors::get()->ir->getValue(IR_BACK_LEFT), DEC);
+    Serial.print("\t\t");
+    Serial.println(Sensors::get()->ir->getValue(IR_BACK_RIGHT), DEC);*/
     //int x = 5;
     //Serial.println(x);
     //Serial.println(5);

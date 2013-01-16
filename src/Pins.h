@@ -18,6 +18,7 @@ public:
     unsigned int MOTOR_LEFT_B;
     unsigned int MOTOR_RIGHT_A;
     unsigned int MOTOR_RIGHT_B;
+    unsigned int BLUE_TOOTH_ENABLE;
 };
 
 #endif
