@@ -1,4 +1,5 @@
 #include "SensorsEcho.h"
+#include "Memory.h"
 #include "Consts.h"
 #include <EEPROM.h>
 
@@ -8,7 +9,9 @@ void setup()
 {
     char id = EEPROM.read(ADDRESS_ID);
     Serial.begin(115200);
-    Serial.print(id);
+
+    //initialise memory based on robot id
+    Memory::get()->init(id);
 }
 
 void loop()
