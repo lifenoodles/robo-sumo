@@ -23,6 +23,7 @@ public:
     void println(String string);
     void report();
     void setReporting(bool isReporting);
+    void setEnabled(bool isEnabled);
 private:
     bool isReporting;
     static BlueTooth* instance;
