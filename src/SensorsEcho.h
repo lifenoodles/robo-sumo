@@ -10,6 +10,11 @@ public:
     ~SensorsEcho();
     int getSensorValue(int sensorID);
     void update();
+
+    enum EchoSensorId
+    {
+        ECHO_FRONT = 0, ECHO_BACK = 1
+    };
 private:
     int timeSincePinged;
     float sonarDistance[2];
