@@ -2,6 +2,7 @@
 #define GUARD_SENSORS
 
 #include "SensorsEcho.h"
+#include "SensorsIR.h"
 
 class Sensors
 {
@@ -10,6 +11,8 @@ public:
     void update(int milliseconds);
     static Sensors* get();
     SensorsEcho* echo;
+    SensorsIR* ir;
+
 private:
     static Sensors* instance;
 };

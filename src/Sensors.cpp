@@ -6,6 +6,7 @@ Sensors* Sensors::instance = 0;
 Sensors::Sensors()
 {
     echo = new SensorsEcho();
+    ir = new SensorsIR();
 }
 
 void Sensors::update(int milliseconds)
