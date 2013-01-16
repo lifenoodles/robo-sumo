@@ -6,6 +6,10 @@ class Pins
 public:
     Pins(unsigned char id);
 
+    unsigned int IR_FRONT_LEFT;
+    unsigned int IR_FRONT_RIGHT;
+    unsigned int IR_BACK_LEFT;
+    unsigned int IR_BACK_RIGHT;
     unsigned int ECHO_FRONT_TRIGGER;
     unsigned int ECHO_FRONT_ECHO;
     unsigned int ECHO_BACK_TRIGGER;

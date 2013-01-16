@@ -7,6 +7,10 @@ Pins::Pins(unsigned char id)
     switch (id)
     {
         case ID_TITAN:
+            IR_FRONT_LEFT = -1;
+            IR_FRONT_RIGHT = -1;
+            IR_BACK_LEFT = -1;
+            IR_BACK_RIGHT = -1;
             ECHO_FRONT_TRIGGER = 4;
             ECHO_FRONT_ECHO = 5;
             ECHO_BACK_TRIGGER = 8;
