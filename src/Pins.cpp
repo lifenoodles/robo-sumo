@@ -1,5 +1,6 @@
 #include "Pins.h"
 #include "Consts.h"
+#include <Arduino.h>
 
 Pins::Pins(unsigned char id)
 {
@@ -14,6 +15,14 @@ Pins::Pins(unsigned char id)
             MOTOR_LEFT_B = 15;
             MOTOR_RIGHT_A = 16;
             MOTOR_RIGHT_B = 17;
+            pinMode(MOTOR_LEFT_A, OUTPUT);
+            pinMode(MOTOR_LEFT_B, OUTPUT);
+            pinMode(MOTOR_RIGHT_A, OUTPUT);
+            pinMode(MOTOR_RIGHT_B, OUTPUT);
+            digitalWrite(MOTOR_LEFT_A, LOW);
+            digitalWrite(MOTOR_LEFT_B, LOW);
+            digitalWrite(MOTOR_RIGHT_A, LOW);
+            digitalWrite(MOTOR_RIGHT_B, LOW);
             break;
 
         case ID_PHOBOS:

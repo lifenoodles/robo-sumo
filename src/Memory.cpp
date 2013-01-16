@@ -1,5 +1,6 @@
 #include "Memory.h"
 #include "Consts.h"
+#include <Arduino.h>
 
 Memory* Memory::instance = 0;
 
