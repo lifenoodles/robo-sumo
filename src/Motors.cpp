@@ -70,17 +70,17 @@ void Motors::rotate(float speed)
     Pins* pins = Memory::get()->pins;
     if (speed < 0)
     {
-        digitalWrite(pins->MOTOR_LEFT_A, DIRECTION_FORWARD[0]);
-        digitalWrite(pins->MOTOR_LEFT_B, DIRECTION_FORWARD[1]);
-        digitalWrite(pins->MOTOR_RIGHT_A, DIRECTION_BACK[0]);
-        digitalWrite(pins->MOTOR_RIGHT_B, DIRECTION_BACK[1]);
-    }
-    else if (speed > 0)
-    {
         digitalWrite(pins->MOTOR_LEFT_A, DIRECTION_BACK[0]);
         digitalWrite(pins->MOTOR_LEFT_B, DIRECTION_BACK[1]);
         digitalWrite(pins->MOTOR_RIGHT_A, DIRECTION_FORWARD[0]);
         digitalWrite(pins->MOTOR_RIGHT_B, DIRECTION_FORWARD[1]);
+    }
+    else if (speed > 0)
+    {
+        digitalWrite(pins->MOTOR_LEFT_A, DIRECTION_FORWARD[0]);
+        digitalWrite(pins->MOTOR_LEFT_B, DIRECTION_FORWARD[1]);
+        digitalWrite(pins->MOTOR_RIGHT_A, DIRECTION_BACK[0]);
+        digitalWrite(pins->MOTOR_RIGHT_B, DIRECTION_BACK[1]);
     }
     else
     {
