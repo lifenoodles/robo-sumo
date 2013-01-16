@@ -1,26 +1,3 @@
 const int ADDRESS_ID = 666;
 const char ID_TITAN = 'T';
 const char ID_PHOBOS = 'P';
-
-enum Motor
-{
-    MOTOR_LEFT, MOTOR_RIGHT
-};
-
-enum IR
-{
-    IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_BOTTOM_LEFT, IR_BOTTOM_RIGHT
-};
-
-enum Echo
-{
-    ECHO_FRONT = 0, ECHO_BACK = 1
-};
-
-enum Pins
-{
-    ECHO_FRONT_TRIGGER = 4,
-    ECHO_FRONT_ECHO = 5,
-    ECHO_BACK_TRIGGER = 8,
-    ECHO_BACK_ECHO = 9
-};

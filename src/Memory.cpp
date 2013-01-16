@@ -14,5 +14,5 @@ Memory* Memory::get()
 
 void Memory::init(unsigned char id)
 {
-    //set up pins here
+    pins = new Pins(id);
 }
