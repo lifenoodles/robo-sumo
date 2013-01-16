@@ -4,6 +4,7 @@
 #include "SensorsEcho.h"
 #include "SensorsIR.h"
 #include "Pins.h"
+#include "Consts.h"
 #include <Arduino.h>
 
 BlueTooth* BlueTooth::instance = 0;
@@ -76,13 +77,16 @@ void BlueTooth::setReporting(bool isReporting)
 
 void BlueTooth::setEnabled(bool isEnabled)
 {
-    if (isEnabled)
+    if(Memory::get()->getID() == ID_TITAN)
     {
-        digitalWrite(Memory::get()->pins->BLUE_TOOTH_ENABLE, HIGH);
-    }
-    else
-    {
-        setReporting(false);
-        digitalWrite(Memory::get()->pins->BLUE_TOOTH_ENABLE, LOW);
+        if (isEnabled)
+        {
+            digitalWrite(Memory::get()->pins->BLUE_TOOTH_ENABLE, HIGH);
+        }
+        else
+        {
+            setReporting(false);
+            digitalWrite(Memory::get()->pins->BLUE_TOOTH_ENABLE, LOW);
+        }
     }
 }

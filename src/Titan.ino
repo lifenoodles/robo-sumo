@@ -26,7 +26,7 @@ void loop()
 {
     int timePassed = millis();
     timer += timePassed;
-    if(timer > 20)
+    if(timer > 50)
     {
         BlueTooth::get()->report();
         timer = 0;
