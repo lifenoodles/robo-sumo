@@ -12,6 +12,7 @@ Sensors::Sensors()
 void Sensors::update(int milliseconds)
 {
     echo->update(milliseconds);
+    ir->update(milliseconds);
 }
 
 Sensors* Sensors::get()

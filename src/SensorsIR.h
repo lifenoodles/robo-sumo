@@ -16,7 +16,7 @@ class SensorsIR
 public:
     SensorsIR();
     ~SensorsIR();
-    int getSensorValue(IDSensorsIR sensorID);
+    int getValue(IDSensorsIR sensorID);
     void update(int milliseconds);
 private:
     unsigned char* irPins;

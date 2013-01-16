@@ -1,6 +1,8 @@
 #include "BlueTooth.h"
 #include "Memory.h"
 #include "Sensors.h"
+#include "SensorsEcho.h"
+#include "SensorsIR.h"
 #include <Arduino.h>
 
 BlueTooth* BlueTooth::instance = 0;
@@ -19,7 +21,7 @@ BlueTooth* BlueTooth::get()
     return instance;
 }
 
-String BlueTooh::read()
+String BlueTooth::read()
 {
     int incomingByte;
     if (Serial.available() > 0)
@@ -45,11 +47,16 @@ void BlueTooth::report()
     {
         Memory* memory = Memory::get();
         /*Serial.write((char) ECHO_FRONT);*/
-        Serial.print("ECHO_FRONT:")
+        Serial.print("ECHO_FRONT:");
         Serial.println(
             Sensors::get()->echo->getSensorValue(ECHO_FRONT));
-        Serial.print("ECHO_BACK:")
+        Serial.print("ECHO_BACK:");
         Serial.println(
             Sensors::get()->echo->getSensorValue(ECHO_BACK));
     }
+}
+
+void BlueTooth::setReporting(bool isReporting)
+{
+    this->isReporting = isReporting;
 }

@@ -3,6 +3,11 @@
 
 #include "NewPing.h"
 
+enum EchoSensorId
+{
+    ECHO_FRONT = 0, ECHO_BACK = 1
+};
+
 class SensorsEcho
 {
 public:
@@ -11,15 +16,11 @@ public:
     int getSensorValue(int sensorID);
     void update(int milliseconds);
 
-    enum EchoSensorId
-    {
-        ECHO_FRONT = 0, ECHO_BACK = 1
-    };
+
 private:
     int timeSincePinged;
     float sonarDistance[2];
     NewPing* sonarFront;
     NewPing* sonarBack;
 };
-
 #endif

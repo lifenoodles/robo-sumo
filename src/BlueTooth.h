@@ -11,7 +11,7 @@ enum MessageConstants
     MSG_IR_FRONT_RIGHT = 3,
     MSG_IR_BOTTOM_LEFT = 4,
     MSG_IR_BOTTOM_RIGHT = 5
-}
+};
 
 class BlueTooth
 {
@@ -19,7 +19,8 @@ public:
     BlueTooth();
     static BlueTooth* get();
     String read();
-    void write(String string);
+    void print(String string);
+    void println(String string);
     void report();
     void setReporting(bool isReporting);
 private:
