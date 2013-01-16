@@ -15,5 +15,11 @@ Memory* Memory::get()
 
 void Memory::init(unsigned char id)
 {
+    this->id = id;
     pins = new Pins(id);
+}
+
+char Memory::getID()
+{
+    return id;
 }
