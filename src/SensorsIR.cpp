@@ -3,18 +3,21 @@
 #include "Memory.h"
 #include <stdlib.h>
 
+unsigned char SensorsIR::irPins[4];
+unsigned int SensorsIR::irValues[4];
+
 SensorsIR::SensorsIR()
 {
     int sensorCount = 4;
     Pins* pins = Memory::get()->pins;
-    irPins = (unsigned char*) malloc(sizeof(unsigned char)
+/*    irPins = (unsigned char*) malloc(sizeof(unsigned char)
         * sensorCount);// new unsigned char[sensorCount];
     irValues = (unsigned int*) malloc(sizeof(unsigned int)
         * sensorCount);
     for(int i = 0; i < sensorCount; ++i)
     {
         irValues = 0;
-    }
+    }*/
     irPins[IR_FRONT_LEFT] = pins->IR_FRONT_LEFT;
     irPins[IR_FRONT_RIGHT] = pins->IR_FRONT_RIGHT;
     irPins[IR_BACK_LEFT] = pins->IR_BACK_LEFT;

@@ -19,8 +19,8 @@ public:
     int getValue(IDSensorsIR sensorID);
     void update(int milliseconds);
 private:
-    unsigned char* irPins;
-    unsigned int* irValues;
+    static unsigned char irPins[4];
+    static unsigned int irValues[4];
     int timeSincePinged;
     QTRSensorsRC* sensors;
 };

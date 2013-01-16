@@ -25,14 +25,14 @@ void loop()
 {
     int timePassed = millis();
     timer += timePassed;
-/*    if(timer > 20)
+    if(timer > 20)
     {
         BlueTooth::get()->report();
         timer = 0;
-    }*/
+    }
     Sensors::get()->update(timePassed);
-    /*Serial.println("Cockballs");*/
-    Serial.println(IR_BACK_LEFT);
-    //Serial.println(Sensors::get()->ir->getValue(IR_BACK_LEFT));
-    delay(200);
+    Serial.println(Sensors::get()->ir->getValue(IR_BACK_LEFT), DEC);
+    //int x = 5;
+    //Serial.println(x);
+    //Serial.println(5);
 }
