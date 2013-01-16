@@ -7,6 +7,7 @@ class Sensors
 {
 public:
     Sensors();
+    void update(int milliseconds);
     static Sensors* get();
     SensorsEcho* echo;
 private:

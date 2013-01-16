@@ -9,7 +9,7 @@ public:
     SensorsEcho();
     ~SensorsEcho();
     int getSensorValue(int sensorID);
-    void update();
+    void update(int milliseconds);
 
     enum EchoSensorId
     {

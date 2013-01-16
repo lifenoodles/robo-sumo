@@ -12,14 +12,13 @@ SensorsEcho::SensorsEcho()
         pins->ECHO_BACK_ECHO, 200);
 }
 
-void SensorsEcho::update()
+void SensorsEcho::update(int milliseconds)
 {
-    int time = millis();
-    if (time - timeSincePinged > 10)
+    if (milliseconds - timeSincePinged > 10)
     {
         sonarDistance[ECHO_FRONT] = sonarFront->ping() / US_ROUNDTRIP_CM;
         sonarDistance[ECHO_BACK] = sonarBack->ping() / US_ROUNDTRIP_CM;
-        timeSincePinged = time;
+        timeSincePinged = milliseconds;
     }
 }
 

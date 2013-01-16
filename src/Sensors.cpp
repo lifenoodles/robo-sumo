@@ -8,6 +8,11 @@ Sensors::Sensors()
     echo = new SensorsEcho();
 }
 
+void Sensors::update(int milliseconds)
+{
+    echo->update(milliseconds);
+}
+
 Sensors* Sensors::get()
 {
     if (instance == 0)
