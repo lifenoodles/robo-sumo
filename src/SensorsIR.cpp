@@ -20,15 +20,15 @@ SensorsIR::SensorsIR()
     sensors = new QTRSensorsRC(irPins, sensorCount,
         2500, QTR_NO_EMITTER_PIN);
     //calibrate sensors, should take ~ 1second
-    for (int i = 0; i < 10; ++i)
+/*    for (int i = 0; i < 10; ++i)
     {
         sensors->calibrate();
-    }
+    }*/
 }
 
 void SensorsIR::update(int milliseconds)
 {
-    sensors->readCalibrated(irValues, QTR_EMITTERS_OFF);
+    sensors->read(irValues, QTR_EMITTERS_ON);
 }
 
 int SensorsIR::getSensorValue(IDSensorsIR sensorID)
