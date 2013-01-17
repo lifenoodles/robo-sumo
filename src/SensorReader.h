@@ -12,8 +12,8 @@ public:
 private:
     void processSensorData();
     int pollingRate;
-    int timeSinceLastPoll;
-    static RingBuffer<int, 10> ledReadings[4];
+    long timeSinceLastPoll;
+    static RingBuffer<int, 1> ledReadings[4];
     static RingBuffer<int, 10> echoReadings[2];
 };
 

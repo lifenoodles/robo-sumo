@@ -15,7 +15,7 @@ SensorsIR::SensorsIR()
     irPins[IR_BACK_RIGHT] = pins->IR_BACK_RIGHT;
 
     sensors = new QTRSensorsRC(irPins, sensorCount,
-        5000, QTR_NO_EMITTER_PIN);
+        4000, QTR_NO_EMITTER_PIN);
 }
 
 void SensorsIR::update(long milliseconds)

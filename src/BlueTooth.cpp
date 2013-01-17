@@ -28,12 +28,17 @@ BlueTooth* BlueTooth::get()
 String BlueTooth::read()
 {
     int incomingByte;
-    if (Serial.available() > 0)
+    while (Serial.available() > 0)
     {
         // read the incoming byte:
         incomingByte = Serial.read();
         Serial.print("RECEIVED: ");
         Serial.println(incomingByte);
+        if (incomingByte == MSG_REMOTE_CONTROL_TOGGLE)
+        {
+            Memory::get()->isRemoteControlled =
+                !(Memory::get()->isRemoteControlled);
+        }
     }
 }
 

@@ -3,33 +3,42 @@
 #include "Memory.h"
 #include "SensorsIR.h"
 #include "Motors.h"
+#include <Arduino.h>
 
 Behaviour* Behaviour::instance = 0;
 
 Behaviour::Behaviour()
 {
     sensorReader = new SensorReader();
+    currentState = &stateSearch;
 }
 
 void Behaviour::update(long milliseconds)
 {
-    WorldState* worldState = Memory::get()->worldState;
     sensorReader->update(milliseconds);
+    WorldState* worldState = Memory::get()->worldState;
     if (Memory::get()->isRemoteControlled)
     {
-        //todo: Cathal
+        while (Serial.available() > 0)
+        {
+            char command = Serial.read();
+            char arg = Serial.read();
+            if(command == 'l')
+            {
+                Motors::get()->setSpeed(MOTOR_LEFT, arg);
+            }
+            else if(command == 'r')
+            {
+                Motors::get()->setSpeed(MOTOR_RIGHT, arg);
+            }
+            Serial.print(command);
+            Serial.print("\t");
+            Serial.print(arg);
+        }
     }
     else
     {
-        if (worldState->irSensorsOn[IR_BACK_LEFT]
-            || worldState->irSensorsOn[IR_BACK_RIGHT])
-        {
-            Motors::get()->setSpeed(1);
-        }
-        else
-        {
-            Motors::get()->setSpeed(-1);
-        }
+        currentState->execute(milliseconds);
     }
 }
 

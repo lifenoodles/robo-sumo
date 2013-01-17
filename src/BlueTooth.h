@@ -10,7 +10,8 @@ enum MessageConstants
     MSG_IR_FRONT_LEFT = 2,
     MSG_IR_FRONT_RIGHT = 3,
     MSG_IR_BOTTOM_LEFT = 4,
-    MSG_IR_BOTTOM_RIGHT = 5
+    MSG_IR_BOTTOM_RIGHT = 5,
+    MSG_REMOTE_CONTROL_TOGGLE = 6,
 };
 
 class BlueTooth
