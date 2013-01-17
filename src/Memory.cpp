@@ -17,6 +17,7 @@ void Memory::init(unsigned char id)
 {
     this->id = id;
     pins = new Pins(id);
+    offsets = new Offsets(id);
 }
 
 char Memory::getID()
