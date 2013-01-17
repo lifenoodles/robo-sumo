@@ -21,10 +21,13 @@ public:
     String read();
     void print(String string);
     void println(String string);
-    void report();
+    void report(int milliseconds);
     void setReporting(bool isReporting);
     void setEnabled(bool isEnabled);
+    void setReportingInterval(int interval);
 private:
+    int reportIntervalTime;
+    int timeSinceLastReport;
     bool isReporting;
     static BlueTooth* instance;
 };

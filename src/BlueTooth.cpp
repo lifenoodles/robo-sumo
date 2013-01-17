@@ -12,6 +12,8 @@ BlueTooth* BlueTooth::instance = 0;
 BlueTooth::BlueTooth()
 {
     isReporting = true;
+    timeSinceLastReport = 0;
+    reportIntervalTime = 50;
 }
 
 BlueTooth* BlueTooth::get()
@@ -30,6 +32,8 @@ String BlueTooth::read()
     {
         // read the incoming byte:
         incomingByte = Serial.read();
+        Serial.print("RECEIVED: ");
+        Serial.println(incomingByte);
     }
 }
 
@@ -43,10 +47,13 @@ void BlueTooth::println(String string)
     Serial.println(string);
 }
 
-void BlueTooth::report()
+void BlueTooth::report(int milliseconds)
 {
-    if (isReporting)
+    timeSinceLastReport += milliseconds;
+    if (isReporting && timeSinceLastReport >=
+        reportIntervalTime)
     {
+        timeSinceLastReport -= reportIntervalTime;
         Memory* memory = Memory::get();
         /*Serial.write((char) ECHO_FRONT);*/
         Serial.print("ECHO_FRONT:");
@@ -89,4 +96,9 @@ void BlueTooth::setEnabled(bool isEnabled)
             digitalWrite(Memory::get()->pins->BLUE_TOOTH_ENABLE, LOW);
         }
     }
+}
+
+void BlueTooth::setReportingInterval(int interval)
+{
+    reportIntervalTime = interval;
 }
