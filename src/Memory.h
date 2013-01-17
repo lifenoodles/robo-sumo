@@ -11,12 +11,14 @@ public:
     static Memory* get();
     void init(unsigned char id);
     char getID();
+    bool isRemoteControlled;
     Pins* pins;
     Offsets* offsets;
     WorldState* worldState;
 private:
     static Memory* instance;
     char id;
+    bool isRemoteCont;
 };
 
 #endif

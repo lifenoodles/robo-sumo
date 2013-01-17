@@ -15,6 +15,7 @@ Memory* Memory::get()
 
 void Memory::init(unsigned char id)
 {
+    isRemoteControlled = false;
     this->id = id;
     pins = new Pins(id);
     offsets = new Offsets(id);
