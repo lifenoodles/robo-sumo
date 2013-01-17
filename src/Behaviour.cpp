@@ -8,7 +8,7 @@ Behaviour::Behaviour()
 
 }
 
-void Behaviour::update(int milliseconds)
+void Behaviour::update(long milliseconds)
 {
 
 }

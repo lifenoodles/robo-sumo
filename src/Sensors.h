@@ -8,11 +8,10 @@ class Sensors
 {
 public:
     Sensors();
-    void update(int milliseconds);
+    void update(long milliseconds);
     static Sensors* get();
     SensorsEcho* echo;
     SensorsIR* ir;
-
 private:
     static Sensors* instance;
 };

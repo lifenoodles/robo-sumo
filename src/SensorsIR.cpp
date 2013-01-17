@@ -18,7 +18,7 @@ SensorsIR::SensorsIR()
         5000, QTR_NO_EMITTER_PIN);
 }
 
-void SensorsIR::update(int milliseconds)
+void SensorsIR::update(long milliseconds)
 {
     sensors->read(irValues, QTR_EMITTERS_ON);
 }

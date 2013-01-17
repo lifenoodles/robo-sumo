@@ -9,7 +9,7 @@ Sensors::Sensors()
     ir = new SensorsIR();
 }
 
-void Sensors::update(int milliseconds)
+void Sensors::update(long milliseconds)
 {
     echo->update(milliseconds);
     ir->update(milliseconds);

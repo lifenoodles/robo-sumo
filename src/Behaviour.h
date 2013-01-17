@@ -4,7 +4,7 @@
 class Behaviour
 {
 public:
-    void update(int milliseconds);
+    void update(long milliseconds);
     static Behaviour* get();
 
 private:

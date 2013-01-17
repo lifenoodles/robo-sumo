@@ -18,9 +18,6 @@ public:
     void rotate(float speed);
     void stop(Motor motor);
     void stop();
-
-
-
 private:
     static Motors* instance;
     static int DIRECTION_FORWARD[2];

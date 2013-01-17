@@ -5,7 +5,9 @@
 
 enum EchoSensorId
 {
-    ECHO_FRONT = 0, ECHO_BACK = 1
+    ECHO_FRONT = 0,
+    ECHO_BACK = 1,
+    ECHO_NUM_SENSORS = 2
 };
 
 class SensorsEcho
@@ -13,8 +15,8 @@ class SensorsEcho
 public:
     SensorsEcho();
     ~SensorsEcho();
-    int getSensorValue(int sensorID);
-    void update(int milliseconds);
+    int getValue(int sensorID);
+    void update(long milliseconds);
 
 
 private:

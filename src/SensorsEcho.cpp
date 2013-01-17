@@ -12,7 +12,7 @@ SensorsEcho::SensorsEcho()
         pins->ECHO_BACK_ECHO, 200);
 }
 
-void SensorsEcho::update(int milliseconds)
+void SensorsEcho::update(long milliseconds)
 {
     if (milliseconds - timeSincePinged > 10)
     {
@@ -22,7 +22,7 @@ void SensorsEcho::update(int milliseconds)
     }
 }
 
-int SensorsEcho::getSensorValue(int sensorID)
+int SensorsEcho::getValue(int sensorID)
 {
     return sonarDistance[sensorID];
 }
