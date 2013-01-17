@@ -3,6 +3,7 @@
 
 #include "Pins.h"
 #include "Offsets.h"
+#include "WorldState.h"
 
 class Memory
 {
@@ -12,6 +13,7 @@ public:
     char getID();
     Pins* pins;
     Offsets* offsets;
+    WorldState* worldState;
 private:
     static Memory* instance;
     char id;

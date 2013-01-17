@@ -23,7 +23,7 @@ void SensorsIR::update(long milliseconds)
     sensors->read(irValues, QTR_EMITTERS_ON);
 }
 
-int SensorsIR::getValue(IDSensorsIR sensorID)
+int SensorsIR::getValue(int sensorID)
 {
     return irValues[sensorID];
 }
