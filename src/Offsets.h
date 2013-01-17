@@ -5,11 +5,7 @@ class Offsets
 {
 public:
     Offsets(unsigned char id);
-
-    unsigned int THRESHOLD_IR_FRONT_LEFT;
-    unsigned int THRESHOLD_IR_FRONT_RIGHT;
-    unsigned int THRESHOLD_IR_BACK_LEFT;
-    unsigned int THRESHOLD_IR_BACK_RIGHT;
+    static unsigned int thresholds[4];
 };
 
 #endif
