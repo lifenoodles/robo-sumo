@@ -1,6 +1,6 @@
 ARDUINO_DIR = /usr/share/arduino
-BOARD_TAG    = diecimila
-ARDUINO_PORT = /dev/ttyACM*
-ARDUINO_LIBS =
+BOARD_TAG    = atmega328
+ARDUINO_PORT = /dev/ttyACM1
+ARDUINO_LIBS = EEPROM
 
 include /usr/share/arduino/Arduino.mk
