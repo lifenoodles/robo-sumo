@@ -1,6 +1,8 @@
 #ifndef GUARD_BEHAVIOUR
 #define GUARD_BEHAVIOUR
 
+#include "SensorReader.h"
+
 class Behaviour
 {
 public:
@@ -9,6 +11,7 @@ public:
 
 private:
     Behaviour();
+    SensorReader* sensorReader;
     static Behaviour* instance;
 };
 
