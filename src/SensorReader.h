@@ -10,11 +10,11 @@ public:
     void update(long milliseconds);
     void setPollingRate(int pollingRate);
 private:
-    void processSensorData();
+    void processSensorData(long milliseconds);
     int pollingRate;
     long timeSinceLastPoll;
     static RingBuffer<int, 1> ledReadings[4];
-    static RingBuffer<int, 10> echoReadings[2];
+    static RingBuffer<int, 1> echoReadings[2];
 };
 
 #endif

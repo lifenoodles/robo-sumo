@@ -50,3 +50,8 @@ Behaviour* Behaviour::get()
     }
     return instance;
 }
+
+void Behaviour::setState(State& state)
+{
+    currentState = &state;
+}

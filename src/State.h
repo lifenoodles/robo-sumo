@@ -13,12 +13,16 @@ public:
     void execute(long milliseconds);
 private:
     bool handleIR(long milliseconds);
+    bool handleEchoes(long milliseconds);
 };
 
 class StateChase : public State
 {
 public:
     void execute(long millisecond);
+private:
+    bool handleIR(long milliseconds);
+    bool handleEchoes(long milliseconds);
 };
 
 #endif

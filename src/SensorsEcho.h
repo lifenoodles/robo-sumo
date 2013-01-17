@@ -20,8 +20,8 @@ public:
 
 
 private:
-    int timeSincePinged;
-    float sonarDistance[2];
+    long timeSincePinged;
+    int sonarDistance[2];
     NewPing* sonarFront;
     NewPing* sonarBack;
 };

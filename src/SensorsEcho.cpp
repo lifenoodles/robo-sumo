@@ -10,14 +10,20 @@ SensorsEcho::SensorsEcho()
         pins->ECHO_FRONT_ECHO, 200);
     sonarBack = new NewPing(pins->ECHO_BACK_TRIGGER,
         pins->ECHO_BACK_ECHO, 200);
+    sonarDistance[ECHO_FRONT] = 77;
+    sonarDistance[ECHO_FRONT] = 77;
 }
 
 void SensorsEcho::update(long milliseconds)
 {
-    if (milliseconds - timeSincePinged > 10)
+    if (milliseconds - timeSincePinged > 33)
     {
-        sonarDistance[ECHO_FRONT] = sonarFront->ping() / US_ROUNDTRIP_CM;
-        sonarDistance[ECHO_BACK] = sonarBack->ping() / US_ROUNDTRIP_CM;
+        sonarDistance[ECHO_FRONT] = sonarFront->ping()
+            / US_ROUNDTRIP_CM;
+        sonarDistance[ECHO_BACK] = sonarBack->ping()
+            / US_ROUNDTRIP_CM;
+/*        Serial.println(sonarDistance[ECHO_FRONT]);
+        Serial.println(sonarDistance[ECHO_BACK]);*/
         timeSincePinged = milliseconds;
     }
 }

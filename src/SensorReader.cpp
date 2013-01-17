@@ -5,7 +5,7 @@
 #include "Memory.h"
 
 RingBuffer<int, 1> SensorReader::ledReadings[4];
-RingBuffer<int, 10> SensorReader::echoReadings[2];
+RingBuffer<int, 1> SensorReader::echoReadings[2];
 
 SensorReader::SensorReader()
 {
@@ -27,13 +27,14 @@ void SensorReader::update(long milliseconds)
         {
             echoReadings[i].add(sensors->echo->getValue(i));
         }
-        processSensorData();
+        processSensorData(milliseconds);
     }
 }
 
-void SensorReader::processSensorData()
+void SensorReader::processSensorData(long milliseconds)
 {
     int thresholdLimit = 0;
+    Offsets* offsets = Memory::get()->offsets;
     WorldState* worldState = Memory::get()->worldState;
     //if we get 3 or more sensors in a row
     for (int sensor = 0; sensor < IR_NUM_SENSORS; ++sensor)
@@ -55,6 +56,17 @@ void SensorReader::processSensorData()
             worldState->irSensorsOn[sensor] = false;
         }
     }
+
+    //ECHO sensors
+    if (echoReadings[ECHO_FRONT][0] > 0
+        &&  echoReadings[ECHO_FRONT][0] < offsets->farDistanceThreshold)
+    {
+        worldState->isOpponentDetected = true;
+        worldState->lastOpponentDistance =
+            echoReadings[ECHO_FRONT][0];
+        worldState->timeSinceOpponentDetected = milliseconds;
+    }
+
 }
 
 void SensorReader::setPollingRate(int pollingRate)

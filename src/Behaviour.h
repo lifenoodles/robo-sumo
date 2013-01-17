@@ -8,11 +8,12 @@ class Behaviour
 {
 public:
     void update(long milliseconds);
+    void setState(State& state);
+    StateSearch stateSearch;
+    StateChase stateChase;
     static Behaviour* get();
 private:
     Behaviour();
-    StateSearch stateSearch;
-    StateChase stateChase;
     State* currentState;
     SensorReader* sensorReader;
     static Behaviour* instance;
