@@ -15,7 +15,6 @@ class SensorsIR
 {
 public:
     SensorsIR();
-    ~SensorsIR();
     int getValue(IDSensorsIR sensorID);
     void update(int milliseconds);
 private:

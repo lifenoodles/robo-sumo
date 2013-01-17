@@ -8,7 +8,7 @@ Pins::Pins(unsigned char id)
     {
         case ID_TITAN:
 
-            IR_FRONT_LEFT = -1;
+            IR_FRONT_LEFT = 12;
             IR_FRONT_RIGHT = 13;
             IR_BACK_LEFT = 11;
             IR_BACK_RIGHT = 10;
@@ -26,7 +26,6 @@ Pins::Pins(unsigned char id)
             pinMode(MOTOR_RIGHT_A, OUTPUT);
             pinMode(MOTOR_RIGHT_B, OUTPUT);
             pinMode(BLUE_TOOTH_ENABLE, OUTPUT);
-            pinMode(13, INPUT);
             digitalWrite(MOTOR_LEFT_A, LOW);
             digitalWrite(MOTOR_LEFT_B, LOW);
             digitalWrite(MOTOR_RIGHT_A, LOW);
