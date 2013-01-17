@@ -9,7 +9,7 @@ Pins::Pins(unsigned char id)
         case ID_TITAN:
 
             IR_FRONT_LEFT = 12;
-            IR_FRONT_RIGHT = 13;
+            IR_FRONT_RIGHT = 7;
             IR_BACK_LEFT = 11;
             IR_BACK_RIGHT = 10;
             ECHO_FRONT_TRIGGER = 4;
