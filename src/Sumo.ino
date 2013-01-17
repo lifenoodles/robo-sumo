@@ -9,12 +9,13 @@ SensorsEcho sensorsEcho;
 
 void setup()
 {
+    EEPROM.write(ADDRESS_ID, ID_PHOBOS);
     char id = EEPROM.read(ADDRESS_ID);
+    Serial.begin(9600);
+    Serial.print("ID: ");
+    Serial.println(id);
     //initialise memory based on robot id,
     //this needs to be done first!
-    Serial.begin(9600);
-    Serial.print("STARTING ID = ");
-    Serial.println(id);
     Memory::get()->init(id);
     BlueTooth::get()->setEnabled(true);
     BlueTooth::get()->setReporting(true);
