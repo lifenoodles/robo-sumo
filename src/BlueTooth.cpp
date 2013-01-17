@@ -58,10 +58,10 @@ void BlueTooth::report(int milliseconds)
         /*Serial.write((char) ECHO_FRONT);*/
         Serial.print("ECHO_FRONT:");
         Serial.println(
-            Sensors::get()->echo->getSensorValue(ECHO_FRONT));
+            Sensors::get()->echo->getValue(ECHO_FRONT));
         Serial.print("ECHO_BACK:");
         Serial.println(
-            Sensors::get()->echo->getSensorValue(ECHO_BACK));
+            Sensors::get()->echo->getValue(ECHO_BACK));
         Serial.print("IR_BACKLEFT:");
         Serial.println(
             Sensors::get()->ir->getValue(IR_BACK_LEFT));
