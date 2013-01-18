@@ -17,10 +17,10 @@ public:
     ~SensorsEcho();
     int getValue(int sensorID);
     void update(long milliseconds);
-
-
+    bool isEchoFired;
 private:
     long timeSincePinged;
+    int pingTime;
     int sonarDistance[2];
     NewPing* sonarFront;
     NewPing* sonarBack;

@@ -4,6 +4,7 @@
 #include "SensorsIR.h"
 #include "Motors.h"
 #include "Behaviour.h"
+#include "BlueTooth.h"
 #include "Offsets.h"
 
 void StateSearch::execute(long milliseconds)
@@ -16,6 +17,7 @@ void StateSearch::execute(long milliseconds)
     }
     if(!ir && !echoes)
     {
+        BlueTooth::get()->logDebug("ROTATE");
         Motors::get()->rotate(1);
     }
 }
@@ -27,33 +29,33 @@ bool StateSearch::handleIR(long milliseconds)
     if (worldState->irSensorsOn[IR_BACK_LEFT]
             && worldState->irSensorsOn[IR_BACK_RIGHT])
     {
-        Serial.println("FORWARD");
+        BlueTooth::get()->logDebug("FORWARD");
         Motors::get()->setSpeed(1);
     }
     else if (worldState->irSensorsOn[IR_BACK_LEFT])
     {
-        Serial.println("LEFT FORWARD");
+        BlueTooth::get()->logDebug("LEFT FORWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, 1);
     }
     else if (worldState->irSensorsOn[IR_BACK_RIGHT])
     {
-        Serial.println("RIGHT FORWARD");
+        BlueTooth::get()->logDebug("RIGHT FORWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, 1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
-        Serial.println("BACKWARD");
+        BlueTooth::get()->logDebug("BACKWARD");
         Motors::get()->setSpeed(-1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT])
     {
-        Serial.println("LEFT BACKWARD");
+        BlueTooth::get()->logDebug("LEFT BACKWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, -1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
-        Serial.println("RIGHT BACKWARD");
+        BlueTooth::get()->logDebug("RIGHT BACKWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, -1);
     }
     else
@@ -78,8 +80,8 @@ bool StateSearch::handleEchoes(long milliseconds)
             <= offsets->opponentTimeout;
     if (isInRange || isPredictedInRange)
     {
-        Behaviour::get()->setState(
-            Behaviour::get()->stateChase);
+        // Behaviour::get()->setState(
+        //     Behaviour::get()->stateChase);
         //Motors::get()->setSpeed(speed);
 
         return true;
