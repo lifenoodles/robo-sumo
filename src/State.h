@@ -10,6 +10,8 @@ public:
     void setTimer(long newTime);
     Maneuver* currentManeuver;
     static Maneuver* maneuverScan;
+    static Maneuver* maneuverBackup;
+    static Maneuver* maneuverRotate;
 
 protected:
     long timer;

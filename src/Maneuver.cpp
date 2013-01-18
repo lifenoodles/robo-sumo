@@ -28,7 +28,8 @@ void Maneuver::execute(long delta)
 
 bool Maneuver::isDone()
 {
-    return moveIndex >= moveCount;
+    return moveIndex >= moveCount &&
+        moveTimer > times[moveCount - 1];
 }
 
 void Maneuver::reset()

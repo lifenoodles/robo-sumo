@@ -8,13 +8,22 @@
 #include "Offsets.h"
 
 Maneuver* State::maneuverScan = new
-    Maneuver(5,
+    Maneuver(4,
         (int[]) {MANEUVER_ROTATE_LEFT,
                 MANEUVER_ROTATE_RIGHT,
                 MANEUVER_ROTATE_LEFT,
-                MANEUVER_ROTATE_RIGHT,
-                MANEUVER_BOTH_FORWARD},
-        (long[]) {500, 500, 500, 500, 1});
+                MANEUVER_ROTATE_RIGHT},
+        (long[]) {50, 100, 200, 400});
+
+Maneuver* State::maneuverBackup = new
+    Maneuver(1,
+        (int[]) {MANEUVER_BOTH_BACKWARD},
+        (long[]) {1000});
+
+Maneuver* State::maneuverRotate = new
+    Maneuver(1,
+        (int[]) {MANEUVER_ROTATE_LEFT},
+        (long[]) {1000});
 
 void State::setTimer(long newTime)
 {
@@ -32,11 +41,6 @@ void StateSearch::execute(long delta)
     }
     if(!ir && !echoes)
     {
-        if (timer - delta == 0)
-        {
-            BlueTooth::get()->logDebug("PATTERN: SEARCH");
-            currentManeuver = State::maneuverScan;
-        }
         if (currentManeuver != 0 &&
             !currentManeuver->isDone())
         {
@@ -120,9 +124,21 @@ void StateChase::execute(long delta)
     }
     if(!ir && !echoes)
     {
-        BlueTooth::get()->logDebug("STATE: SEARCH");
-        Behaviour::get()->setState(
-            Behaviour::get()->stateSearch);
+        if (currentManeuver != 0 &&
+            !currentManeuver->isDone())
+        {
+            currentManeuver->execute(delta);
+        }
+        else
+        {
+            State::maneuverScan->reset();
+            Behaviour::get()->stateSearch.currentManeuver
+                = State::maneuverScan;
+
+            BlueTooth::get()->logDebug("STATE: SEARCH");
+            Behaviour::get()->setState(
+                Behaviour::get()->stateSearch);
+        }
     }
 }
 
@@ -151,6 +167,10 @@ bool StateChase::handleIR(long delta)
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
+        State::maneuverBackup->reset();
+        Behaviour::get()->stateSearch.currentManeuver
+            = State::maneuverBackup;
+
         BlueTooth::get()->logDebug("STATE: SEARCH");
         Motors::get()->stop();
         Behaviour::get()->setState(
