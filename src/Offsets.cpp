@@ -16,6 +16,7 @@ Offsets::Offsets(unsigned char id)
             closeDistanceThreshold = 5;
             farDistanceThreshold = 50;
             opponentTimeout = 2000;
+            rearDangerThreshold = 8;
             break;
 
         case ID_PHOBOS:
@@ -26,6 +27,7 @@ Offsets::Offsets(unsigned char id)
             closeDistanceThreshold = 5;
             farDistanceThreshold = 50;
             opponentTimeout = 2000;
+            rearDangerThreshold = 5;
             break;
     }
 }

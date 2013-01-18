@@ -8,7 +8,9 @@ public:
     bool isOpponentDetected;
     bool isOpponentBehind;
     long timeOpponentDetected;
+    long timeOpponentDetectedBehind;
     int lastOpponentDistance;
+    int lastOpponentDistanceBehind;
     bool irSensorsOn[4];
 };
 

@@ -40,11 +40,13 @@ public:
     {
         timer = 0;
         timeoutTimer = 0;
+        timeoutTimerBehind = 0;
         currentManeuver = 0;
     }
     void execute(long millisecond);
 private:
     long timeoutTimer;
+    long timeoutTimerBehind;
     bool handleIR(long delta);
     bool handleEchoes(long delta);
 };

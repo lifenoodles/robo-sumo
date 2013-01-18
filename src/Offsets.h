@@ -9,6 +9,7 @@ public:
     int closeDistanceThreshold;
     int farDistanceThreshold;
     int opponentTimeout;
+    int rearDangerThreshold;
 };
 
 #endif

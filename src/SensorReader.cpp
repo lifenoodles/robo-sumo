@@ -98,11 +98,11 @@ void SensorReader::processEchoData(long delta, long totalTime)
     {
         worldState->isOpponentDetected = false;
     }
-    if (backDist > 0 && backDist < offsets->farDistanceThreshold)
+    if (backDist > 0 && backDist <= offsets->rearDangerThreshold)
     {
         worldState->isOpponentBehind = true;
-        worldState->lastOpponentDistance = backDist;
-        worldState->timeOpponentDetected = totalTime;
+        worldState->lastOpponentDistanceBehind = backDist;
+        worldState->timeOpponentDetectedBehind = totalTime;
     }
     else
     {

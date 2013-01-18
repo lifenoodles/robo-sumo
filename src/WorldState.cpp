@@ -9,5 +9,8 @@ WorldState::WorldState()
     isOpponentDetected = false;
     isOpponentBehind = false;
     timeOpponentDetected = 0;
+    timeOpponentDetectedBehind = 0;
     lastOpponentDistance = 0;
+    lastOpponentDistanceBehind = 0;
+
 }

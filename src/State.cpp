@@ -113,7 +113,8 @@ bool StateSearch::handleIR(long delta)
 
 bool StateSearch::handleEchoes(long delta)
 {
-    if (Memory::get()->worldState->isOpponentDetected)
+    if (Memory::get()->worldState->isOpponentDetected
+        || Memory::get()->worldState->isOpponentBehind)
     {
         BlueTooth::get()->logDebug("STATE: CHASE");
         Behaviour::get()->setState(
@@ -209,13 +210,27 @@ bool StateChase::handleEchoes(long delta)
     WorldState* worldState = Memory::get()->worldState;
     Offsets* offsets = Memory::get()->offsets;
     timeoutTimer += delta;
-    bool isOpponentNear = timeoutTimer <= 200;
-    if (timeoutTimer > 200)
+    timeoutTimerBehind += delta;
+    if (worldState->isOpponentDetected)
         timeoutTimer = 0;
-    if (worldState->isOpponentDetected || isOpponentNear)
+    if (worldState->isOpponentBehind)
+        timeoutTimerBehind = 0;
+
+    bool isOpponentNearFront = timeoutTimer <= 200;
+    bool isOpponentNearBehind = timeoutTimerBehind <= 200;
+
+    if (worldState->isOpponentDetected
+        || isOpponentNearFront)
     {
         BlueTooth::get()->logDebug("CHARGE");
         Motors::get()->setSpeed(1);
+        return true;
+    }
+    else if (Memory::get()->worldState->isOpponentBehind
+        || isOpponentNearBehind)
+    {
+        BlueTooth::get()->logDebug("CHARGE BACk");
+        Motors::get()->setSpeed(-1);
         return true;
     }
     return false;
