@@ -160,4 +160,3 @@ bool StateChase::handleEchoes(long delta)
     }
     return false;
 }
-
