@@ -13,7 +13,7 @@ void StateSearch::execute(long milliseconds)
     bool echoes = false;
     if (!ir)
     {
-        handleEchoes(milliseconds);
+        echoes = handleEchoes(milliseconds);
     }
     if(!ir && !echoes)
     {
@@ -35,14 +35,14 @@ bool StateSearch::handleIR(long milliseconds)
     else if (worldState->irSensorsOn[IR_BACK_LEFT])
     {
         BlueTooth::get()->logDebug("LEFT FORWARD");
-        Motors::get()->setSpeed(MOTOR_LEFT, 1);
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
+        Motors::get()->setSpeed(MOTOR_LEFT, 1);
     }
     else if (worldState->irSensorsOn[IR_BACK_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT FORWARD");
-        Motors::get()->setSpeed(MOTOR_RIGHT, 1);
         Motors::get()->setSpeed(MOTOR_LEFT, 0);
+        Motors::get()->setSpeed(MOTOR_RIGHT, 1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
@@ -53,14 +53,14 @@ bool StateSearch::handleIR(long milliseconds)
     else if (worldState->irSensorsOn[IR_FRONT_LEFT])
     {
         BlueTooth::get()->logDebug("LEFT BACKWARD");
-        Motors::get()->setSpeed(MOTOR_LEFT, -1);
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
+        Motors::get()->setSpeed(MOTOR_LEFT, -1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT BACKWARD");
-        Motors::get()->setSpeed(MOTOR_RIGHT, -1);
         Motors::get()->setSpeed(MOTOR_LEFT, 0);
+        Motors::get()->setSpeed(MOTOR_RIGHT, -1);
     }
     else
     {
@@ -87,7 +87,7 @@ void StateChase::execute(long milliseconds)
     bool echoes = false;
     if (!ir)
     {
-        handleEchoes(milliseconds);
+        echoes = handleEchoes(milliseconds);
     }
     if(!ir && !echoes)
     {
@@ -110,14 +110,14 @@ bool StateChase::handleIR(long milliseconds)
     else if (worldState->irSensorsOn[IR_BACK_LEFT])
     {
         BlueTooth::get()->logDebug("LEFT FORWARD");
-        Motors::get()->setSpeed(MOTOR_LEFT, 1);
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
+        Motors::get()->setSpeed(MOTOR_LEFT, 1);
     }
     else if (worldState->irSensorsOn[IR_BACK_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT FORWARD");
-        Motors::get()->setSpeed(MOTOR_RIGHT, 1);
         Motors::get()->setSpeed(MOTOR_LEFT, 0);
+        Motors::get()->setSpeed(MOTOR_RIGHT, 1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
@@ -136,8 +136,8 @@ bool StateChase::handleIR(long milliseconds)
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
         BlueTooth::get()->logDebug("FINISH LEFT");
-        Motors::get()->setSpeed(MOTOR_LEFT, 1);
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
+        Motors::get()->setSpeed(MOTOR_LEFT, 1);
     }
     else
     {
@@ -150,7 +150,9 @@ bool StateChase::handleEchoes(long milliseconds)
 {
     WorldState* worldState = Memory::get()->worldState;
     Offsets* offsets = Memory::get()->offsets;
-    if (worldState->isOpponentDetected)
+    long timeDist = milliseconds -
+        worldState->timeOpponentDetected;
+    if (worldState->isOpponentDetected || timeDist < 200)
     {
         BlueTooth::get()->logDebug("CHARGE");
         Motors::get()->setSpeed(1);

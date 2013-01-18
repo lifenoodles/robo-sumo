@@ -18,7 +18,7 @@ void setup()
     //this needs to be done first!
     Memory::get()->init(id);
     BlueTooth::get()->setDebugging(true);
-    BlueTooth::get()->setReporting(true);
+    BlueTooth::get()->setReporting(false);
     delay(2000);
     Serial.println("Ready");
 }

@@ -91,6 +91,10 @@ void SensorReader::processEchoData(long milliseconds)
         worldState->lastOpponentDistance = medianDistance;
         worldState->timeOpponentDetected = milliseconds;
     }
+    else
+    {
+        worldState->isOpponentDetected = false;
+    }
 }
 
 void SensorReader::setPollingRate(int pollingRate)
