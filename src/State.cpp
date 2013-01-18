@@ -7,8 +7,23 @@
 #include "BlueTooth.h"
 #include "Offsets.h"
 
+Maneuver* State::maneuverScan = new
+    Maneuver(5,
+        (int[]) {MANEUVER_ROTATE_LEFT,
+                MANEUVER_ROTATE_RIGHT,
+                MANEUVER_ROTATE_LEFT,
+                MANEUVER_ROTATE_RIGHT,
+                MANEUVER_BOTH_FORWARD},
+        (long[]) {500, 500, 500, 500, 1});
+
+void State::setTimer(long newTime)
+{
+    timer = newTime;
+}
+
 void StateSearch::execute(long delta)
 {
+    timer += delta;
     bool ir = handleIR(delta);
     bool echoes = false;
     if (!ir)
@@ -17,15 +32,29 @@ void StateSearch::execute(long delta)
     }
     if(!ir && !echoes)
     {
-        BlueTooth::get()->logDebug("ROTATE");
-        Motors::get()->rotate(1);
+        if (timer - delta == 0)
+        {
+            BlueTooth::get()->logDebug("PATTERN: SEARCH");
+            currentManeuver = State::maneuverScan;
+        }
+        if (currentManeuver != 0 &&
+            !currentManeuver->isDone())
+        {
+            currentManeuver->execute(delta);
+        }
+        else
+        {
+            currentManeuver->reset();
+            currentManeuver = 0;
+            BlueTooth::get()->logDebug("DEFAULT: ROTATE");
+            Motors::get()->rotate(-1);
+        }
     }
 }
 
 bool StateSearch::handleIR(long delta)
 {
     WorldState* worldState = Memory::get()->worldState;
-    //IR CHECKS
     if (worldState->irSensorsOn[IR_BACK_LEFT]
             && worldState->irSensorsOn[IR_BACK_RIGHT])
     {

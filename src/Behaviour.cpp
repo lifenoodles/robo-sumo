@@ -3,6 +3,7 @@
 #include "Memory.h"
 #include "SensorsIR.h"
 #include "Motors.h"
+#include "State.h"
 #include <Arduino.h>
 
 Behaviour* Behaviour::instance = 0;
@@ -54,4 +55,5 @@ Behaviour* Behaviour::get()
 void Behaviour::setState(State& state)
 {
     currentState = &state;
+    currentState->setTimer(0);
 }

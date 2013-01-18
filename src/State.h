@@ -1,15 +1,28 @@
 #ifndef GUARD_STATE
 #define GUARD_STATE
 
+#include "Maneuver.h"
+
 class State
 {
 public:
     virtual void execute(long delta) = 0;
+    void setTimer(long newTime);
+    Maneuver* currentManeuver;
+    static Maneuver* maneuverScan;
+
+protected:
+    long timer;
 };
 
 class StateSearch : public State
 {
 public:
+    StateSearch()
+    {
+        timer = 0;
+        currentManeuver = 0;
+    }
     void execute(long delta);
 private:
     bool handleIR(long delta);
@@ -19,7 +32,12 @@ private:
 class StateChase : public State
 {
 public:
-    StateChase():timeoutTimer(0){}
+    StateChase()
+    {
+        timer = 0;
+        timeoutTimer = 0;
+        currentManeuver = 0;
+    }
     void execute(long millisecond);
 private:
     long timeoutTimer;

@@ -9,15 +9,18 @@ enum MANEUVER_MOTOR_MOVES
     MANEUVER_LEFT_BACKWARD = 3,
     MANEUVER_BOTH_FORWARD = 4,
     MANEUVER_BOTH_BACKWARD = 5,
+    MANEUVER_ROTATE_RIGHT = 6,
+    MANEUVER_ROTATE_LEFT = 7
 };
 
 class Maneuver
 {
 public:
     Maneuver(int moveCount,
-        int moveArray[], long timeArray[]);
-    void execute(long milliseconds);
+        int* moveArray, long* timeArray);
+    void execute(long delta);
     bool isDone();
+    void reset();
 private:
     void moveMotor(int moveId);
     long moveTimer;
