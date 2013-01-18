@@ -41,6 +41,12 @@ void StateSearch::execute(long delta)
     }
     if(!ir && !echoes)
     {
+        if (timer - delta == 0)
+        {
+            rotationDirection = random(1, 3);
+            if (rotationDirection == 2)
+                rotationDirection = -1;
+        }
         if (currentManeuver != 0 &&
             !currentManeuver->isDone())
         {
@@ -51,7 +57,7 @@ void StateSearch::execute(long delta)
             currentManeuver->reset();
             currentManeuver = 0;
             BlueTooth::get()->logDebug("DEFAULT: ROTATE");
-            Motors::get()->rotate(-1);
+            Motors::get()->rotate(rotationDirection);
         }
     }
 }

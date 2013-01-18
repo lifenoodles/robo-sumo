@@ -24,9 +24,11 @@ public:
     {
         timer = 0;
         currentManeuver = 0;
+        rotationDirection = 1;
     }
     void execute(long delta);
 private:
+    int rotationDirection;
     bool handleIR(long delta);
     bool handleEchoes(long delta);
 };

@@ -19,6 +19,7 @@ void setup()
     Memory::get()->init(id);
     BlueTooth::get()->setDebugging(true);
     BlueTooth::get()->setReporting(true);
+    randomSeed(analogRead(0));
     delay(2000);
     Serial.println("Ready");
 }
