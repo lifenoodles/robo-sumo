@@ -7,6 +7,7 @@ WorldState::WorldState()
         irSensorsOn[i] = false;
     }
     isOpponentDetected = false;
+    isOpponentBehind = false;
     timeOpponentDetected = 0;
     lastOpponentDistance = 0;
 }

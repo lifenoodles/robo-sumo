@@ -6,7 +6,7 @@ SensorsEcho::SensorsEcho()
 {
     isEchoFired = false;
     pingTimer = 0;
-    pingTime = 33;
+    pingTime = 20;
     Pins* pins = Memory::get()->pins;
     sonarFront = new NewPing(pins->ECHO_FRONT_TRIGGER,
         pins->ECHO_FRONT_ECHO, 40);

@@ -13,9 +13,9 @@ Behaviour::Behaviour()
     currentState = &stateSearch;
 }
 
-void Behaviour::update(long delta)
+void Behaviour::update(long delta, long totalTime)
 {
-    sensorReader->update(delta);
+    sensorReader->update(delta, totalTime);
     WorldState* worldState = Memory::get()->worldState;
     if (Memory::get()->isRemoteControlled)
     {

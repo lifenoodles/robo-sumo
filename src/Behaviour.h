@@ -8,7 +8,7 @@
 class Behaviour
 {
 public:
-    void update(long delta);
+    void update(long delta, long totalTime);
     void setState(State& state);
     StateSearch stateSearch;
     StateChase stateChase;

@@ -13,7 +13,7 @@ SensorReader::SensorReader()
     timeSinceLastPoll = 0;
 }
 
-void SensorReader::update(long delta)
+void SensorReader::update(long delta, long totalTime)
 {
     Sensors* sensors = Sensors::get();
     for (int i = 0; i < IR_NUM_SENSORS; ++i)
@@ -29,7 +29,7 @@ void SensorReader::update(long delta)
         {
             echoReadings[i].add(sensors->echo->getValue(i));
         }
-        processEchoData(delta);
+        processEchoData(delta, totalTime);
     }
 }
 
@@ -69,12 +69,12 @@ int cmp(const void* num1, const void* num2)
     return 0;
 }
 
-void SensorReader::processEchoData(long delta)
+void SensorReader::processEchoData(long delta, long totalTime)
 {
     Offsets* offsets = Memory::get()->offsets;
     WorldState* worldState = Memory::get()->worldState;
 
-    int medianDistance = 0;
+/*    int medianDistance = 0;
     int count = echoReadings[ECHO_FRONT].getMaxEntries();
     for (int i = 0; i < count; ++i)
     {
@@ -85,20 +85,28 @@ void SensorReader::processEchoData(long delta)
     qsort(backSortBuffer, count, sizeof(int), cmp);
 
     medianDistance = frontSortBuffer[count / 2];
-
-    if (medianDistance > 0 &&
-        medianDistance < offsets->farDistanceThreshold)
+*/
+    int frontDist = Sensors::get()->echo->getValue(ECHO_FRONT);
+    int backDist = Sensors::get()->echo->getValue(ECHO_BACK);
+    if (frontDist > 0 && frontDist < offsets->farDistanceThreshold)
     {
-        Serial.print("D:");
-        Serial.print(medianDistance);
-        BlueTooth::get()->logDebug("");
         worldState->isOpponentDetected = true;
-        worldState->lastOpponentDistance = medianDistance;
-        worldState->timeOpponentDetected = millis();
+        worldState->lastOpponentDistance = frontDist;
+        worldState->timeOpponentDetected = totalTime;
     }
     else
     {
         worldState->isOpponentDetected = false;
+    }
+    if (backDist > 0 && backDist < offsets->farDistanceThreshold)
+    {
+        worldState->isOpponentBehind = true;
+        worldState->lastOpponentDistance = backDist;
+        worldState->timeOpponentDetected = totalTime;
+    }
+    else
+    {
+        worldState->isOpponentBehind = false;
     }
 }
 
