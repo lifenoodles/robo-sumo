@@ -20,14 +20,14 @@ Offsets::Offsets(unsigned char id)
             break;
 
         case ID_PHOBOS:
-            thresholds[IR_BACK_LEFT] = 2000;
-            thresholds[IR_BACK_RIGHT] = 2000;
+            thresholds[IR_BACK_LEFT] = 3000;
+            thresholds[IR_BACK_RIGHT] = 3000;
             thresholds[IR_FRONT_LEFT] = 500;
             thresholds[IR_FRONT_RIGHT] = 500;
             closeDistanceThreshold = 5;
             farDistanceThreshold = 50;
             opponentTimeout = 2000;
-            rearDangerThreshold = 5;
+            rearDangerThreshold = 8;
             break;
     }
 }
