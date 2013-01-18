@@ -3,9 +3,7 @@
 #include "SensorsIR.h"
 #include "Sensors.h"
 #include "Memory.h"
-
-RingBuffer<int, 1> SensorReader::ledReadings[4];
-RingBuffer<int, 5> SensorReader::echoReadings[2];
+#include "stdlib.h"
 
 SensorReader::SensorReader()
 {
@@ -60,18 +58,38 @@ void SensorReader::processIrData(long milliseconds)
     }
 }
 
+int cmp(const void* num1, const void* num2)
+{
+    int a = *((int*)num1);
+    int b = *((int*)num2);
+    if (a > b) return  1;
+    if (b < a) return -1;
+    return 0;
+}
+
 void SensorReader::processEchoData(long milliseconds)
 {
     Offsets* offsets = Memory::get()->offsets;
     WorldState* worldState = Memory::get()->worldState;
-    //ECHO sensors
-    if (echoReadings[ECHO_FRONT][0] > 0
-        &&  echoReadings[ECHO_FRONT][0] < offsets->farDistanceThreshold)
+
+    int medianDistance = 0;
+    int count = echoReadings[ECHO_FRONT].getMaxEntries();
+    for (int i = 0; i < count; ++i)
+    {
+        frontSortBuffer[i] = echoReadings[ECHO_FRONT][i];
+        backSortBuffer[i] = echoReadings[ECHO_BACK][i];
+    }
+    qsort(frontSortBuffer, count, sizeof(int), cmp);
+    qsort(backSortBuffer, count, sizeof(int), cmp);
+
+    medianDistance = frontSortBuffer[count / 2];
+
+    if (medianDistance > 0 &&
+        medianDistance < offsets->farDistanceThreshold)
     {
         worldState->isOpponentDetected = true;
-        worldState->lastOpponentDistance =
-            echoReadings[ECHO_FRONT][0];
-        worldState->timeSinceOpponentDetected = milliseconds;
+        worldState->lastOpponentDistance = medianDistance;
+        worldState->timeOpponentDetected = milliseconds;
     }
 }
 

@@ -14,8 +14,10 @@ private:
     void processEchoData(long milliseconds);
     int pollingRate;
     long timeSinceLastPoll;
-    static RingBuffer<int, 1> ledReadings[4];
-    static RingBuffer<int, 5> echoReadings[2];
+    RingBuffer<int, 1> ledReadings[4];
+    RingBuffer<int, 5> echoReadings[2];
+    int frontSortBuffer[5];
+    int backSortBuffer[5];
 };
 
 #endif
