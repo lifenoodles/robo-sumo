@@ -5,7 +5,7 @@
 #include "Memory.h"
 
 RingBuffer<int, 1> SensorReader::ledReadings[4];
-RingBuffer<int, 1> SensorReader::echoReadings[2];
+RingBuffer<int, 5> SensorReader::echoReadings[2];
 
 SensorReader::SensorReader()
 {
@@ -15,23 +15,25 @@ SensorReader::SensorReader()
 
 void SensorReader::update(long milliseconds)
 {
-    if (milliseconds - timeSinceLastPoll > pollingRate)
+    Sensors* sensors = Sensors::get();
+    for (int i = 0; i < IR_NUM_SENSORS; ++i)
     {
-        timeSinceLastPoll = milliseconds;
-        Sensors* sensors = Sensors::get();
-        for (int i = 0; i < IR_NUM_SENSORS; ++i)
-        {
-            ledReadings[i].add(sensors->ir->getValue(i));
-        }
+        ledReadings[i].add(sensors->ir->getValue(i));
+    }
+    processIrData(milliseconds);
+
+    if (sensors->echo->isEchoFired)
+    {
+        sensors->echo->isEchoFired = false;
         for(int i = 0; i < ECHO_NUM_SENSORS; ++i)
         {
             echoReadings[i].add(sensors->echo->getValue(i));
         }
-        processSensorData(milliseconds);
+        processEchoData(milliseconds);
     }
 }
 
-void SensorReader::processSensorData(long milliseconds)
+void SensorReader::processIrData(long milliseconds)
 {
     int thresholdLimit = 0;
     Offsets* offsets = Memory::get()->offsets;
@@ -56,7 +58,12 @@ void SensorReader::processSensorData(long milliseconds)
             worldState->irSensorsOn[sensor] = false;
         }
     }
+}
 
+void SensorReader::processEchoData(long milliseconds)
+{
+    Offsets* offsets = Memory::get()->offsets;
+    WorldState* worldState = Memory::get()->worldState;
     //ECHO sensors
     if (echoReadings[ECHO_FRONT][0] > 0
         &&  echoReadings[ECHO_FRONT][0] < offsets->farDistanceThreshold)
@@ -66,7 +73,6 @@ void SensorReader::processSensorData(long milliseconds)
             echoReadings[ECHO_FRONT][0];
         worldState->timeSinceOpponentDetected = milliseconds;
     }
-
 }
 
 void SensorReader::setPollingRate(int pollingRate)
