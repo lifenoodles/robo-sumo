@@ -11,9 +11,11 @@ BlueTooth* BlueTooth::instance = 0;
 
 BlueTooth::BlueTooth()
 {
+    isDebugging = false;
     isReporting = true;
     timeSinceLastReport = 0;
     reportIntervalTime = 50;
+    lastMessage = "";
 }
 
 BlueTooth* BlueTooth::get()
@@ -40,6 +42,16 @@ String BlueTooth::read()
                 !(Memory::get()->isRemoteControlled);
         }
     }
+}
+
+void BlueTooth::logDebug(String string)
+{
+    if (string != lastMessage && isDebugging)
+    {
+        Serial.print("D:");
+        Serial.println(string);
+    }
+    lastMessage = string;
 }
 
 void BlueTooth::print(String string)
@@ -80,6 +92,11 @@ void BlueTooth::report(int milliseconds)
         Serial.println(
             Sensors::get()->ir->getValue(IR_FRONT_RIGHT));
     }
+}
+
+void BlueTooth::setDebugging(bool isDebugging)
+{
+    this->isDebugging = isDebugging;
 }
 
 void BlueTooth::setReporting(bool isReporting)

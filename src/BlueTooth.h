@@ -22,7 +22,9 @@ public:
     String read();
     void print(String string);
     void println(String string);
+    void logDebug(String string);
     void report(int milliseconds);
+    void setDebugging(bool isDebug);
     void setReporting(bool isReporting);
     void setEnabled(bool isEnabled);
     void setReportingInterval(int interval);
@@ -30,6 +32,8 @@ private:
     int reportIntervalTime;
     int timeSinceLastReport;
     bool isReporting;
+    bool isDebugging;
+    String lastMessage;
     static BlueTooth* instance;
 };
 
