@@ -26,7 +26,7 @@ void Motors::setSpeed(Motor motor, float speed)
         direction = DIRECTION_FORWARD;
     else
     {
-        stop();
+        stop(motor);
         return;
     }
     int pin_a, pin_b;
