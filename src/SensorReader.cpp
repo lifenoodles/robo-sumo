@@ -4,6 +4,7 @@
 #include "Sensors.h"
 #include "Memory.h"
 #include "stdlib.h"
+#include <Arduino.h>
 
 SensorReader::SensorReader()
 {
@@ -89,7 +90,7 @@ void SensorReader::processEchoData(long delta)
     {
         worldState->isOpponentDetected = true;
         worldState->lastOpponentDistance = medianDistance;
-        worldState->timeOpponentDetected = milliseconds;
+        worldState->timeOpponentDetected = millis();
     }
     else
     {

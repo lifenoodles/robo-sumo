@@ -3,6 +3,7 @@
 
 #include "SensorReader.h"
 #include "State.h"
+#include "Maneuver.h"
 
 class Behaviour
 {
@@ -16,6 +17,7 @@ private:
     Behaviour();
     State* currentState;
     SensorReader* sensorReader;
+    // Maneuver manuevers[5];
     static Behaviour* instance;
 };
 
