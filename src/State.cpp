@@ -151,7 +151,9 @@ bool StateChase::handleEchoes(long delta)
     WorldState* worldState = Memory::get()->worldState;
     Offsets* offsets = Memory::get()->offsets;
     timeoutTimer += delta;
-    bool isOpponentNear = timeoutTimer <= 150;
+    bool isOpponentNear = timeoutTimer <= 200;
+    if (timeoutTimer > 200)
+        timeoutTimer = 0;
     if (worldState->isOpponentDetected || isOpponentNear)
     {
         BlueTooth::get()->logDebug("CHARGE");

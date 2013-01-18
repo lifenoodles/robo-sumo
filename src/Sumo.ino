@@ -17,7 +17,7 @@ void setup()
     //initialise memory based on robot id,
     //this needs to be done first!
     Memory::get()->init(id);
-    BlueTooth::get()->setDebugging(true);
+    BlueTooth::get()->setDebugging(false);
     BlueTooth::get()->setReporting(false);
     delay(2000);
     Serial.println("Ready");
@@ -34,5 +34,5 @@ void loop()
     //BlueTooth::get()->read();
     Sensors::get()->update(delta);
     Behaviour::get()->update(delta);
-    BlueTooth::get()->report(delta);
+    //BlueTooth::get()->report(delta);
 }

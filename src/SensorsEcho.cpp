@@ -19,7 +19,7 @@ SensorsEcho::SensorsEcho()
 void SensorsEcho::update(long delta)
 {
     pingTimer += delta;
-    if (pingTimer > pingTime)
+    if (pingTimer >= pingTime)
     {
         sonarDistance[ECHO_FRONT] = sonarFront->ping()
             / US_ROUNDTRIP_CM;

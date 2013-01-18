@@ -4,6 +4,7 @@
 #include "Sensors.h"
 #include "Memory.h"
 #include "stdlib.h"
+#include "BlueTooth.h"
 #include <Arduino.h>
 
 SensorReader::SensorReader()
@@ -88,6 +89,9 @@ void SensorReader::processEchoData(long delta)
     if (medianDistance > 0 &&
         medianDistance < offsets->farDistanceThreshold)
     {
+        Serial.print("D:");
+        Serial.print(medianDistance);
+        BlueTooth::get()->logDebug("");
         worldState->isOpponentDetected = true;
         worldState->lastOpponentDistance = medianDistance;
         worldState->timeOpponentDetected = millis();

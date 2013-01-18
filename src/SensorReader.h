@@ -15,9 +15,9 @@ private:
     int pollingRate;
     long timeSinceLastPoll;
     RingBuffer<int, 1> ledReadings[4];
-    RingBuffer<int, 5> echoReadings[2];
-    int frontSortBuffer[5];
-    int backSortBuffer[5];
+    RingBuffer<int, 1> echoReadings[2];
+    int frontSortBuffer[1];
+    int backSortBuffer[1];
 };
 
 #endif
