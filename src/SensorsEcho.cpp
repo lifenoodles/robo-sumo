@@ -5,7 +5,7 @@
 SensorsEcho::SensorsEcho()
 {
     isEchoFired = false;
-    timeSincePinged = 0;
+    pingTimer = 0;
     pingTime = 33;
     Pins* pins = Memory::get()->pins;
     sonarFront = new NewPing(pins->ECHO_FRONT_TRIGGER,
@@ -16,16 +16,17 @@ SensorsEcho::SensorsEcho()
     sonarDistance[ECHO_FRONT] = 77;
 }
 
-void SensorsEcho::update(long milliseconds)
+void SensorsEcho::update(long delta)
 {
-    if (milliseconds - timeSincePinged > pingTime)
+    pingTimer += delta;
+    if (pingTimer > pingTime)
     {
         sonarDistance[ECHO_FRONT] = sonarFront->ping()
             / US_ROUNDTRIP_CM;
         sonarDistance[ECHO_BACK] = sonarBack->ping()
             / US_ROUNDTRIP_CM;
         isEchoFired = true;
-        timeSincePinged = milliseconds;
+        pingTimer -= pingTime;
     }
 }
 

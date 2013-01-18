@@ -7,11 +7,11 @@ class SensorReader
 {
 public:
     SensorReader();
-    void update(long milliseconds);
+    void update(long delta);
     void setPollingRate(int pollingRate);
 private:
-    void processIrData(long milliseconds);
-    void processEchoData(long milliseconds);
+    void processIrData(long delta);
+    void processEchoData(long delta);
     int pollingRate;
     long timeSinceLastPoll;
     RingBuffer<int, 1> ledReadings[4];

@@ -23,14 +23,16 @@ void setup()
     Serial.println("Ready");
 }
 
-long timer = 0;
+long lastTime = 0;
+long nowTime = 0;
 
 void loop()
 {
-    long timePassed = millis();
-    timer += timePassed;
+    nowTime = millis();
+    long delta = nowTime - lastTime;
+    lastTime = nowTime;
     //BlueTooth::get()->read();
-    Sensors::get()->update(timePassed);
-    Behaviour::get()->update(timePassed);
-    BlueTooth::get()->report(timePassed);
+    Sensors::get()->update(delta);
+    Behaviour::get()->update(delta);
+    BlueTooth::get()->report(delta);
 }

@@ -13,13 +13,13 @@ Behaviour::Behaviour()
     currentState = &stateSearch;
 }
 
-void Behaviour::update(long milliseconds)
+void Behaviour::update(long delta)
 {
-    sensorReader->update(milliseconds);
+    sensorReader->update(delta);
     WorldState* worldState = Memory::get()->worldState;
     if (Memory::get()->isRemoteControlled)
     {
-        while (Serial.available() > 0)
+        if (Serial.available() >= 2)
         {
             char command = Serial.read();
             char arg = Serial.read();
@@ -38,7 +38,7 @@ void Behaviour::update(long milliseconds)
     }
     else
     {
-        currentState->execute(milliseconds);
+        currentState->execute(delta);
     }
 }
 

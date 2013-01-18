@@ -17,11 +17,10 @@ class SensorsIR
 public:
     SensorsIR();
     int getValue(int sensorID);
-    void update(long milliseconds);
+    void update(long delta);
 private:
     static unsigned char irPins[4];
     static unsigned int irValues[4];
-    int timeSincePinged;
     QTRSensorsRC* sensors;
 };
 

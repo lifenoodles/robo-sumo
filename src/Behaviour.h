@@ -7,7 +7,7 @@
 class Behaviour
 {
 public:
-    void update(long milliseconds);
+    void update(long delta);
     void setState(State& state);
     StateSearch stateSearch;
     StateChase stateChase;

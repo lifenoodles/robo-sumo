@@ -11,14 +11,14 @@ SensorReader::SensorReader()
     timeSinceLastPoll = 0;
 }
 
-void SensorReader::update(long milliseconds)
+void SensorReader::update(long delta)
 {
     Sensors* sensors = Sensors::get();
     for (int i = 0; i < IR_NUM_SENSORS; ++i)
     {
         ledReadings[i].add(sensors->ir->getValue(i));
     }
-    processIrData(milliseconds);
+    processIrData(delta);
 
     if (sensors->echo->isEchoFired)
     {
@@ -27,11 +27,11 @@ void SensorReader::update(long milliseconds)
         {
             echoReadings[i].add(sensors->echo->getValue(i));
         }
-        processEchoData(milliseconds);
+        processEchoData(delta);
     }
 }
 
-void SensorReader::processIrData(long milliseconds)
+void SensorReader::processIrData(long delta)
 {
     int thresholdLimit = 0;
     Offsets* offsets = Memory::get()->offsets;
@@ -67,7 +67,7 @@ int cmp(const void* num1, const void* num2)
     return 0;
 }
 
-void SensorReader::processEchoData(long milliseconds)
+void SensorReader::processEchoData(long delta)
 {
     Offsets* offsets = Memory::get()->offsets;
     WorldState* worldState = Memory::get()->worldState;

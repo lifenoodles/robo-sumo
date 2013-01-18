@@ -13,7 +13,7 @@ BlueTooth::BlueTooth()
 {
     isDebugging = false;
     isReporting = true;
-    timeSinceLastReport = 0;
+    reportTimer = 0;
     reportIntervalTime = 50;
     lastMessage = "";
 }
@@ -64,13 +64,13 @@ void BlueTooth::println(String string)
     Serial.println(string);
 }
 
-void BlueTooth::report(int milliseconds)
+void BlueTooth::report(long delta)
 {
-    timeSinceLastReport += milliseconds;
-    if (isReporting && timeSinceLastReport >=
+    reportTimer += delta;
+    if (reportTimer >
         reportIntervalTime)
     {
-        timeSinceLastReport -= reportIntervalTime;
+        reportTimer -= reportIntervalTime;
         Memory* memory = Memory::get();
         /*Serial.write((char) ECHO_FRONT);*/
         Serial.print("ECHO_FRONT:");

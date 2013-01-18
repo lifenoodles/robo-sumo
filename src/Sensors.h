@@ -8,7 +8,7 @@ class Sensors
 {
 public:
     Sensors();
-    void update(long milliseconds);
+    void update(long delta);
     static Sensors* get();
     SensorsEcho* echo;
     SensorsIR* ir;

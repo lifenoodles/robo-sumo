@@ -4,25 +4,27 @@
 class State
 {
 public:
-    virtual void execute(long milliseconds) = 0;
+    virtual void execute(long delta) = 0;
 };
 
 class StateSearch : public State
 {
 public:
-    void execute(long milliseconds);
+    void execute(long delta);
 private:
-    bool handleIR(long milliseconds);
-    bool handleEchoes(long milliseconds);
+    bool handleIR(long delta);
+    bool handleEchoes(long delta);
 };
 
 class StateChase : public State
 {
 public:
+    StateChase():timeoutTimer(0){}
     void execute(long millisecond);
 private:
-    bool handleIR(long milliseconds);
-    bool handleEchoes(long milliseconds);
+    long timeoutTimer;
+    bool handleIR(long delta);
+    bool handleEchoes(long delta);
 };
 
 #endif

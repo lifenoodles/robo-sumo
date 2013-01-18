@@ -9,10 +9,10 @@ Sensors::Sensors()
     ir = new SensorsIR();
 }
 
-void Sensors::update(long milliseconds)
+void Sensors::update(long delta)
 {
-    echo->update(milliseconds);
-    ir->update(milliseconds);
+    echo->update(delta);
+    ir->update(delta);
 }
 
 Sensors* Sensors::get()

@@ -7,13 +7,13 @@
 #include "BlueTooth.h"
 #include "Offsets.h"
 
-void StateSearch::execute(long milliseconds)
+void StateSearch::execute(long delta)
 {
-    bool ir = handleIR(milliseconds);
+    bool ir = handleIR(delta);
     bool echoes = false;
     if (!ir)
     {
-        echoes = handleEchoes(milliseconds);
+        echoes = handleEchoes(delta);
     }
     if(!ir && !echoes)
     {
@@ -22,7 +22,7 @@ void StateSearch::execute(long milliseconds)
     }
 }
 
-bool StateSearch::handleIR(long milliseconds)
+bool StateSearch::handleIR(long delta)
 {
     WorldState* worldState = Memory::get()->worldState;
     //IR CHECKS
@@ -69,7 +69,7 @@ bool StateSearch::handleIR(long milliseconds)
     return true;
 }
 
-bool StateSearch::handleEchoes(long milliseconds)
+bool StateSearch::handleEchoes(long delta)
 {
     if (Memory::get()->worldState->isOpponentDetected)
     {
@@ -81,13 +81,13 @@ bool StateSearch::handleEchoes(long milliseconds)
     return false;
 }
 
-void StateChase::execute(long milliseconds)
+void StateChase::execute(long delta)
 {
-    bool ir = handleIR(milliseconds);
+    bool ir = handleIR(delta);
     bool echoes = false;
     if (!ir)
     {
-        echoes = handleEchoes(milliseconds);
+        echoes = handleEchoes(delta);
     }
     if(!ir && !echoes)
     {
@@ -97,7 +97,7 @@ void StateChase::execute(long milliseconds)
     }
 }
 
-bool StateChase::handleIR(long milliseconds)
+bool StateChase::handleIR(long delta)
 {
     WorldState* worldState = Memory::get()->worldState;
     //IR CHECKS
@@ -146,13 +146,13 @@ bool StateChase::handleIR(long milliseconds)
     return true;
 }
 
-bool StateChase::handleEchoes(long milliseconds)
+bool StateChase::handleEchoes(long delta)
 {
     WorldState* worldState = Memory::get()->worldState;
     Offsets* offsets = Memory::get()->offsets;
-    long timeDist = milliseconds -
-        worldState->timeOpponentDetected;
-    if (worldState->isOpponentDetected || timeDist < 200)
+    timeoutTimer += delta;
+    bool isOpponentNear = timeoutTimer <= 150;
+    if (worldState->isOpponentDetected || isOpponentNear)
     {
         BlueTooth::get()->logDebug("CHARGE");
         Motors::get()->setSpeed(1);

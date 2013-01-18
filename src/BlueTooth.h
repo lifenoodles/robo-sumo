@@ -23,14 +23,14 @@ public:
     void print(String string);
     void println(String string);
     void logDebug(String string);
-    void report(int milliseconds);
+    void report(long delta);
     void setDebugging(bool isDebug);
     void setReporting(bool isReporting);
     void setEnabled(bool isEnabled);
     void setReportingInterval(int interval);
 private:
     int reportIntervalTime;
-    int timeSinceLastReport;
+    long reportTimer;
     bool isReporting;
     bool isDebugging;
     String lastMessage;
