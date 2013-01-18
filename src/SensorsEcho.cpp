@@ -9,9 +9,9 @@ SensorsEcho::SensorsEcho()
     pingTime = 33;
     Pins* pins = Memory::get()->pins;
     sonarFront = new NewPing(pins->ECHO_FRONT_TRIGGER,
-        pins->ECHO_FRONT_ECHO, 20);
+        pins->ECHO_FRONT_ECHO, 40);
     sonarBack = new NewPing(pins->ECHO_BACK_TRIGGER,
-        pins->ECHO_BACK_ECHO, 20);
+        pins->ECHO_BACK_ECHO, 40);
     sonarDistance[ECHO_FRONT] = 77;
     sonarDistance[ECHO_FRONT] = 77;
 }

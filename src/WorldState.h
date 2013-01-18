@@ -6,7 +6,7 @@ class WorldState
 public:
     WorldState();
     bool isOpponentDetected;
-    long timeSinceOpponentDetected;
+    long timeOpponentDetected;
     int lastOpponentDistance;
     bool irSensorsOn[4];
 };

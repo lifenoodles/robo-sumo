@@ -36,11 +36,13 @@ bool StateSearch::handleIR(long milliseconds)
     {
         BlueTooth::get()->logDebug("LEFT FORWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, 1);
+        Motors::get()->setSpeed(MOTOR_RIGHT, 0);
     }
     else if (worldState->irSensorsOn[IR_BACK_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT FORWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, 1);
+        Motors::get()->setSpeed(MOTOR_LEFT, 0);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
@@ -52,11 +54,13 @@ bool StateSearch::handleIR(long milliseconds)
     {
         BlueTooth::get()->logDebug("LEFT BACKWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, -1);
+        Motors::get()->setSpeed(MOTOR_RIGHT, 0);
     }
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT BACKWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, -1);
+        Motors::get()->setSpeed(MOTOR_LEFT, 0);
     }
     else
     {
@@ -67,23 +71,11 @@ bool StateSearch::handleIR(long milliseconds)
 
 bool StateSearch::handleEchoes(long milliseconds)
 {
-    WorldState* worldState = Memory::get()->worldState;
-    Offsets* offsets = Memory::get()->offsets;
-
-    bool isInRange = worldState->lastOpponentDistance
-        < offsets->farDistanceThreshold
-        && worldState->lastOpponentDistance != 0;
-    bool isPredictedInRange =
-        worldState->lastOpponentDistance
-                <= offsets->closeDistanceThreshold
-        && worldState->timeSinceOpponentDetected
-            <= offsets->opponentTimeout;
-    if (isInRange || isPredictedInRange)
+    if (Memory::get()->worldState->isOpponentDetected)
     {
-        // Behaviour::get()->setState(
-        //     Behaviour::get()->stateChase);
-        //Motors::get()->setSpeed(speed);
-
+        BlueTooth::get()->logDebug("STATE: CHASE");
+        Behaviour::get()->setState(
+            Behaviour::get()->stateChase);
         return true;
     }
     return false;
@@ -99,6 +91,7 @@ void StateChase::execute(long milliseconds)
     }
     if(!ir && !echoes)
     {
+        BlueTooth::get()->logDebug("STATE: SEARCH");
         Behaviour::get()->setState(
             Behaviour::get()->stateSearch);
     }
@@ -111,30 +104,38 @@ bool StateChase::handleIR(long milliseconds)
     if (worldState->irSensorsOn[IR_BACK_LEFT]
             && worldState->irSensorsOn[IR_BACK_RIGHT])
     {
+        BlueTooth::get()->logDebug("FORWARD");
         Motors::get()->setSpeed(1);
     }
     else if (worldState->irSensorsOn[IR_BACK_LEFT])
     {
+        BlueTooth::get()->logDebug("LEFT FORWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, 1);
+        Motors::get()->setSpeed(MOTOR_RIGHT, 0);
     }
     else if (worldState->irSensorsOn[IR_BACK_RIGHT])
     {
+        BlueTooth::get()->logDebug("RIGHT FORWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, 1);
+        Motors::get()->setSpeed(MOTOR_LEFT, 0);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT]
         && worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
+        BlueTooth::get()->logDebug("STATE: SEARCH");
         Motors::get()->stop();
         Behaviour::get()->setState(
             Behaviour::get()->stateSearch);
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT])
     {
+        BlueTooth::get()->logDebug("FINISH RIGHT");
         Motors::get()->setSpeed(MOTOR_LEFT, 0);
         Motors::get()->setSpeed(MOTOR_RIGHT, 1);
     }
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
+        BlueTooth::get()->logDebug("FINISH LEFT");
         Motors::get()->setSpeed(MOTOR_LEFT, 1);
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
     }
@@ -149,17 +150,9 @@ bool StateChase::handleEchoes(long milliseconds)
 {
     WorldState* worldState = Memory::get()->worldState;
     Offsets* offsets = Memory::get()->offsets;
-    long timeDist =
-        milliseconds - worldState->timeSinceOpponentDetected;
-    bool isInRange = worldState->lastOpponentDistance
-        < offsets->farDistanceThreshold
-        && worldState->lastOpponentDistance != 0;
-    bool isPredictedInRange =
-        worldState->lastOpponentDistance
-                <= offsets->closeDistanceThreshold
-        && timeDist <= offsets->opponentTimeout;
-    if (isInRange || isPredictedInRange)
+    if (worldState->isOpponentDetected)
     {
+        BlueTooth::get()->logDebug("CHARGE");
         Motors::get()->setSpeed(1);
         return true;
     }
