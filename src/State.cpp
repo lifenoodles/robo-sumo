@@ -13,17 +13,17 @@ Maneuver* State::maneuverScan = new
                 MANEUVER_ROTATE_RIGHT,
                 MANEUVER_ROTATE_LEFT,
                 MANEUVER_ROTATE_RIGHT},
-        (long[]) {50, 100, 200, 400});
+        (long[]) {150, 300, 300, 300});
 
 Maneuver* State::maneuverBackup = new
     Maneuver(1,
         (int[]) {MANEUVER_BOTH_BACKWARD},
-        (long[]) {1000});
+        (long[]) {300});
 
 Maneuver* State::maneuverRotate = new
     Maneuver(1,
         (int[]) {MANEUVER_ROTATE_LEFT},
-        (long[]) {1000});
+        (long[]) {500});
 
 void State::setTimer(long newTime)
 {
@@ -82,18 +82,21 @@ bool StateSearch::handleIR(long delta)
     {
         BlueTooth::get()->logDebug("BACKWARD");
         Motors::get()->setSpeed(-1);
+        currentManeuver = State::maneuverBackup;
     }
     else if (worldState->irSensorsOn[IR_FRONT_LEFT])
     {
         BlueTooth::get()->logDebug("LEFT BACKWARD");
         Motors::get()->setSpeed(MOTOR_RIGHT, 0);
         Motors::get()->setSpeed(MOTOR_LEFT, -1);
+        currentManeuver = State::maneuverBackup;
     }
     else if (worldState->irSensorsOn[IR_FRONT_RIGHT])
     {
         BlueTooth::get()->logDebug("RIGHT BACKWARD");
         Motors::get()->setSpeed(MOTOR_LEFT, 0);
         Motors::get()->setSpeed(MOTOR_RIGHT, -1);
+        currentManeuver = State::maneuverBackup;
     }
     else
     {
