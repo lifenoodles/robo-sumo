@@ -11,8 +11,8 @@ Offsets::Offsets(unsigned char id)
         case ID_TITAN:
             thresholds[IR_BACK_LEFT] = 3000;
             thresholds[IR_BACK_RIGHT] = 3000;
-            thresholds[IR_FRONT_LEFT] = 500;
-            thresholds[IR_FRONT_RIGHT] = 500;
+            thresholds[IR_FRONT_LEFT] = 70;
+            thresholds[IR_FRONT_RIGHT] = 70;
             closeDistanceThreshold = 5;
             farDistanceThreshold = 50;
             opponentTimeout = 2000;

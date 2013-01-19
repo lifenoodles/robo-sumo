@@ -42,7 +42,7 @@ void setup()
     }
     else if (id == ID_TITAN)
     {
-        delay(2000);
+        delay(3000);
     }
     else
     {
