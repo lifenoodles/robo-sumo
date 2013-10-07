@@ -42,7 +42,7 @@ path=""
 echo $debug > ../scripts/LAST_BUILD
 echo $sumo_id >> ../scripts/LAST_BUILD
 
-mv Sumo.cpp Sumo.ino
+
 case $sumo_id in
     "phobos")
         flags=$(echo "$flags" "-DPHOBOS")
@@ -67,4 +67,4 @@ if [ "$?" = "0" ]; then
 else
     echo "ERROR while compiling!"
 fi
-mv Sumo.ino Sumo.cpp
+
