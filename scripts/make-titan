@@ -3,4 +3,9 @@ BOARD_TAG    = atmega328
 ARDUINO_PORT = /dev/ttyUSB*
 ARDUINO_LIBS = EEPROM Servo
 
+ARDMK_DIR = /usr/bin/share/arduino
+PARSE_BOARD = /usr/bin/ard-parse-boards
+AVR_TOOLS_PATH = /usr/bin
+RESET_CMD = /usr/bin/ard-reset-arduino
+
 include /usr/share/arduino/Arduino.mk
