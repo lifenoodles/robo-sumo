@@ -46,7 +46,7 @@ void setup()
     }
     else
     {
-        Serial.println("Unrecognised ID, Abort.");
+        Serial.println("Unrecognised ID, Abort.")
     }
     Serial.println("Ready");
 }
