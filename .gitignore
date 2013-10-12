@@ -2,3 +2,4 @@ build-cli/
 examples/
 .project
 .cproject
+bin/

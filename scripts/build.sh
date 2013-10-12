@@ -21,7 +21,6 @@ flags=
 while [ "$#" -gt 0 ]; do
     case "$1" in
         "-d")
-            flags="-DDEBUG"
             debug="1"
             ;;
         *)
@@ -31,26 +30,15 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
-doclean=0
-last_debug=$(head -n 1 ../scripts/LAST_BUILD)
-last_sumo=$(head -n 2 ../scripts/LAST_BUILD | tail -1)
-if [ "$last_debug" != "$debug" ] || [ "$last_sumo" != "$sumo_id" ]; then
-    doclean=1
-fi
 path=""
-
-echo $debug > ../scripts/LAST_BUILD
-echo $sumo_id >> ../scripts/LAST_BUILD
-
-
 case $sumo_id in
     "phobos")
-        flags=$(echo "$flags" "-DPHOBOS")
-        path="make-phobos"
+        name="phobos"
+        id="PHOBOS"
         ;;
     "titan")
-        flags=$(echo "$flags" "-DTITAN")
-        path="make-titan"
+        name="titan"
+        id="TITAN"
         ;;
     *)
         echo "Unrecognised Sumo ID"
@@ -58,10 +46,13 @@ case $sumo_id in
         ;;
 esac
 
-if [ "$doclean" == "1" ]; then
-  make clean -f "../scripts/$path"
+path="../build/make-$name"
+if [ "$debug" == "1" ]; then
+    EXTRA_FLAGS="-DDEBUG -D$id" OBJDIR="../build/bin/$name-debug" make -f "$path"
+else
+    EXTRA_FLAGS="-DDEBUG -D$id" OBJDIR="../build/bin/   $name" make -f "$path"
 fi
-SUMO_ID=$flags make -f "../scripts/$path"
+
 if [ "$?" = "0" ]; then
     echo "Compiled OK!"
 else
